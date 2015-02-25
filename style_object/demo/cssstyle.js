@@ -1,5 +1,6 @@
 var CssStyle = (function(W){
-    var doc = W['document'], cssEl, sheet, ruleSet, css;
+    var doc = W['document'], detect = bs.detectWindow( this, {} ), bStyle = doc.createElement('div').style,
+        cssEl, sheet, ruleSet, css, stylePrefix;
 
     cssEl = doc.createElement('style');
     doc.getElementsByTagName('head')[0].appendChild(cssEl);
@@ -35,6 +36,13 @@ var CssStyle = (function(W){
         }
     }
 
+    switch( detect.browser ){
+        case'ie': stylePrefix = 'ms'; break;
+        case'firefox': stylePrefix = 'Moz'; break;
+        case'opera': stylePrefix = 'O'; break;
+        default: stylePrefix = 'webkit';
+    }
+
     css = function(sel){
         add(sel);
         this.selector = sel;
@@ -48,7 +56,16 @@ var CssStyle = (function(W){
     };
 
     css.prototype.set = function( prop, val ){
-        this.style[prop] = val;
+        if( prop == 'opacity' && !( 'opacity' in bStyle ) ){
+            this.style['filter'] = 'alpha(opacity=' + parseInt( val * 100 ) + ')';
+            return;
+        }
+
+        var t0 = prop.replace( /-[a-z]/g, function(_0){return _0.charAt(1).toUpperCase();});
+
+        if( prop in bStyle || ( t0 = stylePrefix + t0.charAt(0).toUpperCase() + t0.substr(1) ) in bStyle ){
+            this.style[t0] = val;
+        }
     };
 
     return css;

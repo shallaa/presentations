@@ -11,7 +11,7 @@
 
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 
-    <link rel="stylesheet" href="../revealjs/css/reveal.css">
+    <link rel="stylesheet" href="../revealjs/css/reveal.css" id="css_test">
     <link rel="stylesheet" href="../revealjs/css/theme/moon.css" id="theme">
 
     <!-- For syntax highlighting -->
@@ -94,334 +94,197 @@
 <body>
 
 <div class="reveal">
-
-    <!-- Any section element inside of this container is displayed as a slide -->
     <div class="slides">
-        <!-- bg image : https://www.flickr.com/photos/stevensnodgrass/8549544197/ -->
-        <section  data-background="./img/cover.jpg" data-transition="zoom" data-background-transition="zoom">
+        <section>
             <div>
                 <h1>
                     스타일 객체 활용<br>
                 </h1>
-
                 <p style="color:#fff;text-shadow:1px 1px 2px black,0 0 1em black,0 0 0.2em black;margin-bottom:-30px">
                     <small>Feb 26, 2015 - 이준호</small>
                 </p>
             </div>
         </section>
 
-        <section data-background="#212124">
-            <h2>AngularJS?</h2>
-            <div>
-                <img src="./img/img01.jpg">
-                <ul style="list-style:square;font-size:25px">
-                    <li>2009년 Miško Hevery과 Adam Abrons에 의해 개발된 MVC(또는 MVW) 프레임워크</li>
-                    <li>SPA(Single Page Application) 형태의 웹 어플리케이션 개발에 적합</li>
-                    <li>DOM 제어에 중점을 두지 않고 데이터 변화와 출력에 중점</li>
-                    </p>
-            </div>
+        <section>
+
+            <section data-background="#212124">
+                <h2>스타일 객체???</h2>
+                <p style="clear:left"><a href="http://www.w3.org/TR/2000/REC-DOM-Level-2-Style-20001113" class="txt_28" target="_new">http://www.w3.org/TR/2000/REC-DOM-Level-2-Style-20001113</a></p>
+                <div>
+                    <iframe scrolling='auto' src='http://www.w3.org/TR/2000/REC-DOM-Level-2-Style-20001113/'
+                            frameborder='no' allowtransparency='true' allowfullscreen='true' style='width:100%;height:475px'>
+                    </iframe>
+                </div>
+            </section>
+
+            <section data-background="#212124">
+                <h2>스타일 객체??</h2>
+                <p style="clear:left"><a href="http://www.w3.org/2003/01/dom2-javadoc/org/w3c/dom/css/CSSStyleDeclaration.html" class="txt_28" target="_new">CSSStyleDeclaration</a></p>
+                <div>
+                    <iframe scrolling='auto' src='http://www.w3.org/2003/01/dom2-javadoc/org/w3c/dom/css/CSSStyleDeclaration.html'
+                            frameborder='no' allowtransparency='true' allowfullscreen='true' style='width:100%;height:475px'>
+                    </iframe>
+                </div>
+            </section>
+
+            <section data-background="#212124">
+                <h1>
+                    DOM<br>
+                </h1>
+                <div>
+                    <h2>Document</h2>
+                    <h2>Object</h2>
+                    <h2>Model</h2>
+                </div>
+            </section>
+
         </section>
 
-        <section data-background="#742717">
-            <h2>Philosophy</h2>
+        <section>
+            <section data-background="#212124">
+                <h2>스타일 객체?</h2>
+                <div>
+                    <ul style="list-style:square;font-size:25px">
+                        <li>CSSStyleDeclaration</li>
+                        <li>document.createElement('div').style</li>
+                        <li>최종적으로 모든 스타일의 정보가 저장되는 객체</li>
+                        <li>MSStyleCSSProperties, CSS2Properties</li>
+                    </ul>
+                </div>
+            </section>
 
-            <ul style="margin-top:20px">
-                <li class="l_title l_none"><h3>1. 데이터 중심적</h3></li>
-                <li>기존 방식은 먼저 대상 DOM 요소를 선택 한 후, 필요한 작업을 수행하는 형태<br>
-                    → AngularJS는 데이터 자체에 초점을 맞추어 작업, 데이터의 출력은 자동으로 수행<br><br></li>
+            <section data-background="#212124">
+                <p style="clear:left">CSSStyleDeclaration</p>
+                <div>
+                    <iframe scrolling='no' src='http://codepen.io/shallaa/embed/jExRzW/?height=430&theme-id=5264&slug-hash=eqtJo&user=none'
+                            frameborder='no' allowtransparency='true' allowfullscreen='true' style='width:100%;height:475px;overflow:hidden'>
+                    </iframe>
+                </div>
+            </section>
 
-                <li class="l_title l_none"><h3>2. 테스트 주도적</h3></li>
-                <li>Dependency Injection을 통해 손쉽게 mock-up 객체로 전환</li>
-                <li>뷰와 분리된 컨트롤러내의 비즈니스 로직은 테스트 친화적<br><br></li>
+            <section data-background="#212124">
+                <p style="clear:left">CSSStyleDeclaration 활용</p>
+                <div>
+                    <iframe scrolling='no' src='http://codepen.io/shallaa/embed/emrobE/?height=430&theme-id=5264&slug-hash=eqtJo&user=none'
+                            frameborder='no' allowtransparency='true' allowfullscreen='true' style='width:100%;height:475px;overflow:hidden'>
+                    </iframe>
+                </div>
+            </section>
 
-                <li class="l_title l_none"><h3>3. 선언적 HTML</h3></li>
-                <li>커스텀 태그, 태그 속성 등을 통한 선언적 형태의 사용</li>
-            </ul>
+            <section data-background="#212124">
+                <p style="clear:left">&lt;style&gt;&lt;/style&gt;, &lt;link&gt;&lt;/link&gt;</p>
+                <div>
+                    <iframe scrolling='no' src='http://codepen.io/shallaa/embed/azGxeK/?height=430&theme-id=5264&slug-hash=eqtJo&user=none'
+                            frameborder='no' allowtransparency='true' allowfullscreen='true' style='width:100%;height:475px;overflow:hidden'>
+                    </iframe>
+                </div>
+            </section>
         </section>
 
         <section data-background="#212124">
-            <h2>간단 AngularJS 예제 #1</h2>
-            <div>
-                <iframe scrolling='no' src='http://codepen.io/netil/embed/bNqGZJ?height=430&theme-id=5264&slug-hash=eqtJo&user=none&default-tab=html'
-                        frameborder='no' allowtransparency='true' allowfullscreen='true' style='width:100%;height:475px;overflow:hidden'>
-                </iframe>
-            </div>
-        </section>
-
-        <section data-background="#212124">
-            <h2>간단 AngularJS 예제 #2</h2>
-            <div>
-                <iframe scrolling='no' src='http://codepen.io/netil/embed/LEWERm?height=430&theme-id=5264&slug-hash=eqtJo&user=none&default-tab=html'
-                        frameborder='no' allowtransparency='true' allowfullscreen='true' style='width:100%;height:475px;overflow:hidden'>
-                </iframe>
-            </div>
-        </section>
-
-        <section data-background="#212124">
-            <h2>양방향 데이터 바인딩<br>(Two-Way Data Binding)</h2>
-            <div>
-                <p><img src="./img/data_binding.png"></p>
-            </div>
-        </section>
-
-        <section data-background="#212124">
-            <h2>초기화 과정</h2>
-            <div>
-                <p style="float:left"><img src="./img/bootstrap.png"></p>
-
-                <ul style="float:left;width:450px;margin-top:20px">
-                    <li class="fragment">1. DOMContentLoaded 이벤트에서 실행</li>
-                    <li class="fragment">2. AngularJS 영역 초기화 과정 :<br>
-                        <ul style="font-size:20px;list-style:circle">
-                            <li>문서 내에서 ng-app 지시자 확인</li>
-                            <li>모듈 및 지시자와 연관된 모듈을 로딩</li>
-                            <li>어플리케이션 injector 생성</li>
-                            <li>DOM의 컴파일 <p style="font-size:18px;color:#727272">컴파일은 DOM트리를 순회하면서 지시를 찾아 매칭하고(Compile 과정), 이후 지시자와 스코프를 결합(Link 과정)해 모델의 변경을 뷰에 출력하는 일련의 처리 작업을 의미</p></li>
-                        </ul>
-                    </li>
-                    <li class="fragment">3. 변경된 DOM의 화면 출력</li>
-                </ul>
-
-                <p style="clear:left"><a href="https://docs.angularjs.org/guide/bootstrap" class="txt_28" target="_new">Bootstrap: Angular initialization process</a></p>
-            </div>
-        </section>
-
-        <section data-background="#212124">
-            <h2>개발방법 비교:<br>DOM 제어 vs AngularJS</h2>
-
-            <p>
-                <a href="http://todomvc.com/" title="TodoMVC" target="_new">
-                    <img src="http://todomvc.com/site-assets/logo.svg" style="width:300px;border:solid 1px;padding:10px;border-radius:10px;background-color:#fff;">
-                </a>
+            <p style="clear:left">
+                스타일 객체( CSSStyleDeclaration )를 찾아서.<br>
             </p>
-
-            <iframe class="fragment" src='http://todomvc.com/examples/jquery/#/all'
-                    frameborder='no' allowtransparency='true' allowfullscreen='true' style='width:100%;height:385px;overflow:hidden'>
-            </iframe>
+            <div>
+                <ul style="float:left;width:450px;margin-top:20px">
+                    <li class="fragment">console.dir(document.getElementById('css_test'))</li>
+                    <li class="fragment">console.dir(document.getElementById('css_test').sheet)</li>
+                    <li class="fragment">console.dir(document.getElementById('css_test').sheet.cssRules)</li>
+                    <li class="fragment">console.dir(document.getElementById('css_test').sheet.cssRules[100])</li>
+                    <li class="fragment">console.dir(document.getElementById('css_test').sheet.cssRules[100].style)</li>
+                </ul>
+            </div>
         </section>
 
         <section data-background="#212124">
-            <h2>개발방법 비교: DOM 제어</h2>
-
-            <img src="./img/todo_dom.png">
-        </section>
-
-        <section data-background="#212124">
-            <h2>개발방법 비교: AngularJS</h2>
-
-            <img src="./img/todo_angularjs.png">
-        </section>
-
-        <section data-background="#212124">
-            <h2>개발방법 비교:<br>DOM 제어 vs AngularJS</h2>
-
+            <h2>
+                정리하면
+            </h2>
+            <br>
             <table style="font-size:30px">
                 <thead>
-                <tr>
-                    <th>구분</th>
-                    <th>종류</th>
-                    <th>크기(byte)</th>
-                    <th>Total(byte)</th>
-                </tr>
-                </thead>
-                <tbody>
-                <tr>
-                    <td>DOM 제어(Jindo)</td>
-                    <td>HTML</td>
-                    <td>1,164</td>
-                    <td><span style="color:#FD2822">4,951 (100%)</span></td>
-                </tr>
-                <tr>
-                    <td></td>
-                    <td>JavaScript</td>
-                    <td>3,787</td>
-                    <td></td>
-                </tr>
-                <tr>
-                    <td>AngularJS</td>
-                    <td>HTML</td>
-                    <td>2,059</td>
-                    <td><span style="color:#2FCC02">3,161 (63.84%)</span></td>
-                </tr>
-                <tr>
-                    <td></td>
-                    <td>JavaScript</td>
-                    <td>1,102</td>
-                    <td></td>
-                </tr>
-                </tbody>
-            </table>
-        </section>
-
-        <section data-background="#212124">
-            <h2>적용사례로 살펴본 학습 비용</h2>
-
-            <table style="font-size:30px;margin-top:50px">
-                <thead>
                 <tr style="color:#d19439">
-                    <th>구분</th>
-                    <th>학습 시간/예측</th>
-                    <th>개발 서비스 종류</th>
+                    <th>Browser</th>
+                    <th>CSSStyleDeclaration</th>
+                    <th>CSSStyleSheet</th>
+                    <th>CSSRuleList</th>
                 </tr>
                 </thead>
                 <tbody>
                 <tr>
-                    <td>사례1</td>
-                    <td>6주</td>
-                    <td>서비스 어드민</td>
+                    <td>IE</td>
+                    <td>MSStyleCSSProperties</td>
+                    <td>sheet, styleSheet</td>
+                    <td>cssRules, rules</td>
                 </tr>
                 <tr>
-                    <td>사례2</td>
-                    <td>7일(2일 학습 + 5일 개발)</td>
-                    <td>2개의 탭을 갖는 목록</td>
+                    <td>Chrome</td>
+                    <td>CSSStyleDeclaration</td>
+                    <td>sheet</td>
+                    <td>cssRules, rules</td>
                 </tr>
                 <tr>
-                    <td>사례3</td>
-                    <td>JS 초급: 쉽게접근<br>JS 중/상급:<br>기존 방식의 익숙함으로<br>인한 시간필요</td>
-                    <td>APM, 저작도구, 프로모션 페이지, etc.</td>
+                    <td>FireFox</td>
+                    <td>CSS2Properties</td>
+                    <td>sheet</td>
+                    <td>cssRules</td>
                 </tr>
                 <tr>
-                    <td>사례4</td>
-                    <td>2주</td>
-                    <td>컨텐츠와 목록 포함하는 엔드 페이지</td>
+                    <td>Safari</td>
+                    <td>CSSStyleDeclaration</td>
+                    <td>sheet</td>
+                    <td>cssRules, rules</td>
                 </tr>
                 </tbody>
             </table>
+            <br>
+            <p class="fragment" style="clear:left">selctorText, <span style="color:#2FCC02">style</span></p>
         </section>
 
-        <!-- bg image : https://www.flickr.com/photos/hackny/8048248960/ -->
-        <section data-background="./img/8048248960_b6835fd849_k.jpg">
+        <section>
+            <h2>추가, 제거</h2>
+            <pre><code class="javascript">
+                var styleEl = document.createElement('style');
+                document.getElementsByTagName('head')[0].appendChild(styleEl);
 
-            <h2>개발자들이 생각하는 장점</h2>
+                var sheet = styleEl.sheet || styleEl.styleSheet;
+                var rules = sheet.cssRules || sheet.rules;
 
-            <div style="width:100%;height:380px;position:absolute;background-color:#353636;opacity:0.5;border-radius:20px;border:dotted 4px #fff;"></div>
-            <ul style="margin-top:40px;font-size:34px;position:relative;color:#fff;padding:20px;">
-                <li class="fragment">유지보수가 쉽다, 개발속도가 빠르다.</li>
-                <li class="fragment">간편한 데이터 바인딩을 통해 뷰 업데이트가 쉽다.</li>
-                <li class="fragment">코드 패턴이 동일해 개인간 차이에 따른 결과물의 차이가 적다, 코드량이 감소한다.</li>
-                <li class="fragment">SPA 개발에 최적화 되어 있다.</li>
-                <li class="fragment">기능적인 분리가 명확해 협업이 쉽다.</li>
-            </ul>
+                sheet.insertRule( 'p{}', 0 ); // sheet.addRule( 'p', ' ' );
+
+                var rule = rules[0];
+                rule.style['color'] = 'red';
+
+                sheet.deleteRule(0); // sheet.removeRule(0);
+            </code></pre>
+            <p style="clear:left">This is Test</p>
         </section>
 
-        <section data-background="#212124">
-            <h2>고려사항: 성능 #1 <span class="txt_28">TodoMVC Benchmark</span></h2>
-
-            <iframe src='http://dsuket.github.io/todomvc-perf-comparison/'
-                    frameborder='no' allowtransparency='true' allowfullscreen='true' style='width:100%;height:500px;overflow:hidden'>
-            </iframe>
-            <a class="txt_28" href="http://dsuket.github.io/todomvc-perf-comparison/" target="_new">http://dsuket.github.io/todomvc-perf-comparison/</a>
+        <section>
+            <h2>결론</h2>
+            <br>
+            <div>
+                <ul>
+                    <li class="fragment">최종적으로 스타일 속성을 저장하고 제어의 대상이 되는 것은 <span style="color:#2FCC02">CSSStyleDelaration 객체</span></li>
+                    <li class="fragment">모든 DOM Element에는 style 속성이 있음. ( CSSStyleDelaration )</li>
+                    <li class="fragment">스타일 시트 또한 CSSRule 객체에 style 속성이 있음.</li>
+                    <li class="fragment"><span style="color:#2FCC02">따라서 스타일시트 또한 얼마든지 제어가 가능.</span></li>
+                    <li class="fragment">스타일시트의 CSSRuleList를 제어하게 되면..<br>
+                        <ul style="font-size:20px;list-style:circle">
+                            <li>런타임에 동적으로 스타일 시트를 변경할 수 있게 되고.</li>
+                            <li>풍부한 프로그래밍 언어로서의 자바스크립트로 스타일 시트를 통제할 수 있음.</li>
+                            <li>인라인이 아니라 스타일 시트에 지정한 스타일이 되므로</li>
+                            <li>스타일시트의 성능과 하드웨어의 도움 등을 그대로 활용 가능.</li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
         </section>
 
-        <section data-background="#212124">
-            <h2>고려사항: 성능 #2 <span class="txt_28">초기 로딩&렌더링</span></h2>
-
-            <p><img src="http://www.filamentgroup.com/images/initial-load-mvc/todo-mvc-performance-summary.png" style="width:350px"></p>
-            <a class="txt_28" href="http://www.filamentgroup.com/lab/mv-initial-load-times.html" target="_new">http://www.filamentgroup.com/lab/mv-initial-load-times.html</a>
-        </section>
-
-        <section data-background="#212124">
-            <h2>고려사항: 성능 #3 <span class="txt_28">데이터 처리</span></h2>
-
-            <p>100개 목록 데이터가 HTML에 포함되어 처리되는 경우</p>
-
-            <iframe id="dataload_normal" src='http://ajaxui.nhncorp.com/svnview/yorky/mania/prototype/angularjs_performance/news.php?count=100'
-                    frameborder='no' allowtransparency='true' allowfullscreen='true' style='width:50%;height:500px;float:left'>
-            </iframe>
-            <iframe id="dataload_angular" src='http://ajaxui.nhncorp.com/svnview/yorky/mania/prototype/angularjs_performance/news_angularjs.php?count=100'
-                    frameborder='no' allowtransparency='true' allowfullscreen='true' style='width:50%;height:500px;float:left'>
-            </iframe>
-
-            <p style="clear:left;padding-top:10px">
-                <button class="reload_btn" onclick="document.getElementById('dataload_normal').src='http://ajaxui.nhncorp.com/svnview/yorky/mania/prototype/angularjs_performance/news.php?count=100'">일반</button>
-                <span style="font-size:20px">< click to refresh ></span>
-                <button class="reload_btn" onclick="document.getElementById('dataload_angular').src='http://ajaxui.nhncorp.com/svnview/yorky/mania/prototype/angularjs_performance/news_angularjs.php?count=100'">AngularJS</button>
-            </p>
-        </section>
-
-        <section data-background="#212124">
-            <h2>고려사항: 성능 #4 <span class="txt_28">데이터 바인딩</span></h2>
-
-            <p>데이터 편차에 따른 처리 속도</p>
-
-            <iframe id="dataload2_normal" src='http://ajaxui.nhncorp.com/svnview/yorky/mania/prototype/angularjs_performance/news_bind.php'
-                    frameborder='no' allowtransparency='true' allowfullscreen='true' style='width:50%;height:500px;float:left'>
-            </iframe>
-            <iframe id="dataload2_angular" src='http://ajaxui.nhncorp.com/svnview/yorky/mania/prototype/angularjs_performance/news_angularjs_bind.php'
-                    frameborder='no' allowtransparency='true' allowfullscreen='true' style='width:50%;height:500px;float:left'>
-            </iframe>
-
-            <p style="font-size:28px;clear:left;padding-top:10px">
-                One-Way Data Binding vs. Two-Way Data Binding
-            </p>
-        </section>
-
-        <section data-background="#212124">
-            <h2>고려사항: FOUC<sup>*</sup></h2>
-
-<pre><code>&lt;body ng-app="myApp">
-    &lt;div ng-controller="myControllerList">
-    &lt;ul>
-    &lt;li ng-repeat="fruit in fruits">
-    &lt;span>{{fruit.name}}&lt;/span> / &lt;span>{{fruit.qty}}&lt;/span>
-    &lt;/li>
-    &lt;/ul>
-
-    &lt;button onclick="location.reload()">reload&lt;/button>
-    &lt;/div>
-    &lt;script type="text/javascript" src="https://code.angularjs.org/1.3.8/angular.min.js">&lt;/script>
-    &lt;script type="text/javascript">
-    angular.module("myApp",[])
-    .controller("myControllerList", function($scope) {
-    $scope.fruits = [
-    { name: '메론', qty: 9 },
-    { name: '망고', qty: 3 },
-    { name: '바나나', qty: 1 }
-    ];
-    });
-    &lt;/script>
-    &lt;/body></code></pre>
-
-            <iframe src='./demo/fouc.html'
-                    frameborder='no' allowtransparency='true' allowfullscreen='true' style='width:90%;height:150px;overflow:hidden'>
-            </iframe>
-
-            <small>*FOUC(Flash Of Unstyled Content) -
-                <a href="http://en.wikipedia.org/wiki/Flash_of_unstyled_content" target="_new">
-                    http://en.wikipedia.org/wiki/Flash_of_unstyled_content</a>
-            </small>
-        </section>
-
-        <section data-background="#212124">
-            <h2>고려사항: 이벤트 바인딩</h2>
-
-            <p>양방향 데이터 바인딩을 위해 모델로 지정된 요소에<br>여래 개의 이벤트가 바인딩 된다.</p>
-            <iframe class="fragment" src='./demo/event.html'
-                    frameborder='no' allowtransparency='true' allowfullscreen='true' style='width:90%;height:350px;overflow:hidden'>
-            </iframe>
-        </section>
-
-        <section data-background="#212124">
-            <h2>고려사항: 호환성</h2>
-
-            <p>Angular 2.0에선 1.x과 호환성 갖지 않음 (주요 문법의 변경과 폐지)</p>
-            <img src="./img/angular20.png" style="border:solid 1px #fff;padding:20px;background-color:#fff;border-radius: 10px;">
-
-            <p class="txt_28"><a href="http://www.youtube.com/watch?v=gNmWybAyBHI" target="_new">ng-europe 2014: Angular 2.0 Core</a></p>
-        </section>
-
-        <section data-background="#212124">
-            <h2>도입 할까?,말까?</h2>
-
-            <img class="fragment" src="./img/flow_chart.png" style="border:solid 1px #fff;padding:20px;background-color:#fff;border-radius: 10px;">
-        </section>
-
-        <!-- bg image : https://www.flickr.com/photos/homeofbastian/3206456480 -->
-        <section data-background="./img/end.jpg" data-transition="linear" data-background-transition="linear">
-            <p style="font-size:3.5em;letter-spacing:-10px;color:#fff;-webkit-text-stroke:3px #00D3BF;">
-                <span style="display:inherit;margin-left:-100px">muchas</span>
-                <span style="display:inherit;padding-left:38px;margin:-83px 0 0 -100px">gracias.</span>
-            </p>
+        <section>
+            <h1>Thank You</h1>
+            <h2><a href="demo/demo1.html">DEMO</a></h2>
         </section>
 
     </div>
