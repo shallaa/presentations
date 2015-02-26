@@ -1,14 +1,13 @@
 var CssStyle = (function(W){
     var doc = W['document'], detect = bs.detectWindow( this, {} ), bStyle = doc.createElement('div').style,
-        cssEl, sheet, ruleSet, css, stylePrefix;
+        cssEl, sheet, ruleSet, css, stylePrefix,
+        index, add, remove;
 
     cssEl = doc.createElement('style');
     doc.getElementsByTagName('head')[0].appendChild(cssEl);
 
     sheet = cssEl.styleSheet || cssEl.sheet;
     ruleSet = sheet.cssRules || sheet.rules;
-
-    var index, add, remove;
 
     index = function(sel){
         var i = 0, j = ruleSet.length, k;
