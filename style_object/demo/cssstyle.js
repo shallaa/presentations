@@ -1,19 +1,19 @@
 var CssStyle = (function(W){
     var doc = W['document'], detect = bs.detectWindow( this, {} ), bStyle = doc.createElement('div').style,
-        cssEl, sheet, ruleSet, css, stylePrefix,
+        cssEl, sheet, rules, css, stylePrefix,
         index, add, remove;
 
     cssEl = doc.createElement('style');
     doc.getElementsByTagName('head')[0].appendChild(cssEl);
 
     sheet = cssEl.styleSheet || cssEl.sheet;
-    ruleSet = sheet.cssRules || sheet.rules;
+    rules = sheet.cssRules || sheet.rules;
 
     index = function(sel){
-        var i = 0, j = ruleSet.length, k;
+        var i = 0, j = rules.length, k;
         for( ; i < j; i++ ){
-            if( ruleSet[k = i].selectorText.toLowerCase() == sel ||
-                ruleSet[k = j - i - 1].selectorText.toLowerCase() == sel ){
+            if( rules[k = i].selectorText.toLowerCase() == sel ||
+                rules[k = j - i - 1].selectorText.toLowerCase() == sel ){
                 return k;
             }
         }
@@ -21,7 +21,7 @@ var CssStyle = (function(W){
 
     if( sheet.insertRule ){
         add = function(sel){
-            sheet.insertRule( sel + '{}', ruleSet.length );
+            sheet.insertRule( sel + '{}', rules.length );
         };
         remove = function(sel){
             sheet.deleteRule( index(sel) );
@@ -45,7 +45,7 @@ var CssStyle = (function(W){
     css = function(sel){
         add(sel);
         this.selector = sel;
-        this.rule = ruleSet[ruleSet.length - 1];
+        this.rule = rules[rules.length - 1];
         this.style = this.rule.style;
     };
 
