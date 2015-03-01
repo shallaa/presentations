@@ -62,7 +62,7 @@ var CssStyle = (function(W){
 
         var t0 = prop.replace( /-[a-z]/g, function(_0){return _0.charAt(1).toUpperCase();});
 
-        if( prop in bStyle || ( t0 = stylePrefix + t0.charAt(0).toUpperCase() + t0.substr(1) ) in bStyle ){
+        if( t0 in bStyle || ( t0 = stylePrefix + t0.charAt(0).toUpperCase() + t0.substr(1) ) in bStyle ){
             this.style[t0] = val;
         }
     };
