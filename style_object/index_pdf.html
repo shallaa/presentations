@@ -158,11 +158,11 @@
                 <p style="clear:left">CSSStyleDeclaration</p>
                 <div>
                     <pre><code class="javascript">
-                        document.getElementById('console').innerHTML = '' +
-                        document.getElementsByTagName('head')[0].style + '<br>' +
-                        document.getElementsByTagName('html')[0].style + '<br>' +
-                        document.createElement('script').style + '<br>' +
-                        document.createElement('link').style + '<br>';
+document.getElementById('console').innerHTML = '' +
+document.getElementsByTagName('head')[0].style + '<br>' +
+document.getElementsByTagName('html')[0].style + '<br>' +
+document.createElement('script').style + '<br>' +
+document.createElement('link').style + '<br>';
                     </code></pre>
                 </div>
             </section>
@@ -171,9 +171,9 @@
                 <p style="clear:left">CSSStyleDeclaration 활용</p>
                 <div>
                     <pre><code class="javascript">
-                        var div_test = document.getElementById('div_test');
-                        div_test.style.left = '100px';
-                        ...
+var div_test = document.getElementById('div_test');
+div_test.style.left = '100px';
+...
                     </code></pre>
                 </div>
             </section>
@@ -182,18 +182,18 @@
                 <p style="clear:left">&lt;style&gt;&lt;/style&gt;, &lt;link&gt;&lt;/link&gt;</p>
                 <div>
                     <pre><code class="javascript">
-                        var canvas = document.getElementById('canvas'),
-                        context = canvas.getContext('2d');
+var canvas = document.getElementById('canvas'),
+context = canvas.getContext('2d');
 
-                        context.fillStyle = 'red';
-                        context.fillRect( 0, 0, 100, 100 );
+context.fillStyle = 'red';
+context.fillRect( 0, 0, 100, 100 );
 
-                        // document.createElement('style').style
+// document.createElement('style').style
 
-                        // canvas의 context를 얻어와 제어하는 것처럼..
-                        // canvas라는 태그는 실제 동작하는 context를 HTML 문서에 부착하기 위한 공통 인터페이스로 이해할 수 있음.
-                        // style 엘리먼트의 style 객체를 제어하는 것이 아닌.
-                        // style 엘리먼트에 있는 실제 스타일 시트 객체를 얻어와야 한다.
+// canvas의 context를 얻어와 제어하는 것처럼..
+// canvas라는 태그는 실제 동작하는 context를 HTML 문서에 부착하기 위한 공통 인터페이스로 이해할 수 있음.
+// style 엘리먼트의 style 객체를 제어하는 것이 아닌.
+// style 엘리먼트에 있는 실제 스타일 시트 객체를 얻어와야 한다.
                     </code></pre>
                 </div>
             </section>
@@ -262,18 +262,18 @@
         <section>
             <h2>추가, 제거</h2>
             <pre><code class="javascript">
-                var styleEl = document.createElement('style');
-                document.getElementsByTagName('head')[0].appendChild(styleEl);
+var styleEl = document.createElement('style');
+document.getElementsByTagName('head')[0].appendChild(styleEl);
 
-                var sheet = styleEl.sheet || styleEl.styleSheet;
-                var rules = sheet.cssRules || sheet.rules;
+var sheet = styleEl.sheet || styleEl.styleSheet;
+var rules = sheet.cssRules || sheet.rules;
 
-                sheet.insertRule( 'p{}', 0 ); // sheet.addRule( 'p', ' ' );
+sheet.insertRule( 'p{}', 0 ); // sheet.addRule( 'p', ' ' );
 
-                var rule = rules[0];
-                rule.style['color'] = 'red';
+var rule = rules[0];
+rule.style['color'] = 'red';
 
-                sheet.deleteRule(0); // sheet.removeRule(0);
+sheet.deleteRule(0); // sheet.removeRule(0);
             </code></pre>
             <p style="clear:left">This is Test</p>
         </section>
