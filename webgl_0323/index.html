@@ -205,7 +205,7 @@ geoms = [
         </section>
 
         <section>
-            <h1>Custom Geomatry</h1>
+            <h1>Custom Geometry</h1>
             <div>
                 <p>Vertex와 Face를 직접 지정하는 것.</p>
             </div>
@@ -240,10 +240,10 @@ var faces = [
     new THREE.Face3( 3, 6, 4 )     // front
 ];
 
-var geomatry = new THREE.Geometry();
-geomatry.verices = vertices;
-geomatry.faces = faces;
-geomatry.computeFaceNormals();    // face 연산.
+var geometry = new THREE.Geometry();
+geometry.verices = vertices;
+geometry.faces = faces;
+geometry.computeFaceNormals();    // face 연산.
             </code></pre>
             <ul>
                 <li>vertices : 각 점들의 위치를 정의.</li>
@@ -300,7 +300,7 @@ mesh.children.forEach( function(e){e.castShadow = true; } ); // Mesh 그룹을 l
 scene.add(mesh);
                 </code></pre>
                 <ul>
-                    <li>THREE.SceneUtils.createMultiMaterialObject( geomatry, [material, material, ...] )</li>
+                    <li>THREE.SceneUtils.createMultiMaterialObject( geometry, [material, material, ...] )</li>
                     <li>각각의 Mesh를 생성하여 그룹을 지어주는 것</li>
                 </ul>
             </section>
