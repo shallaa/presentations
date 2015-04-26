@@ -1,0 +1,340 @@
+<!doctype html>
+<html lang="ko">
+<head>
+    <meta charset="utf-8">
+    <title>WebGL 0406</title>
+
+    <meta name="description" content="WebGL 0309">
+    <meta name="author" content="shallaa">
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <link rel="stylesheet" href="../revealjs/css/reveal.css" id="link_test">
+    <link rel="stylesheet" href="../revealjs/css/theme/moon.css" id="theme">
+
+    <!-- For syntax highlighting -->
+    <link rel="stylesheet" href="../revealjs/lib/css/zenburn.css">
+
+    <!-- If the query includes 'print-pdf', include the PDF print sheet -->
+    <script>
+        if( window.location.search.match( /print-pdf/gi ) ) {
+            var link = document.createElement( 'link' );
+            link.rel = 'stylesheet';
+            link.type = 'text/css';
+            link.href = '../revealjs/css/print/pdf.css';
+            document.getElementsByTagName( 'head' )[0].appendChild( link );
+        }
+    </script>
+
+    <!--[if lt IE 9]>
+    <script src="../revealjs/lib/js/html5shiv.js"></script>
+    <![endif]-->
+
+    <style id="style_test">
+        textarea { width:90%;position:relative;dispaly:block;font-size:0.55em;background-color:#3F3F3F; color:#fff;font-family: monospace;
+            line-height: 1.2em;
+            word-wrap: break-word;
+            box-shadow: 0px 0px 6px rgba(0,0,0,0.3); }
+
+        .code {
+            position:relative; }
+
+        .code > button {
+            font-family: "Nanum Gothic";
+            margin: 0 0 10px 15px;
+            padding: .3em;
+            font-size:.6em;
+            margin: 0 2px;
+            background-color: #0A5AFA;
+            width: 120px;
+            color: #fff;
+            position: absolute;
+            display: block;
+            border: none;
+            top: 1px;
+            left: 853px;
+            opacity: .4;
+            z-index: 1; }
+
+        .code > button:hover {
+            opacity: 1; }
+
+        button {
+            width: 150px;
+            height: 40px;
+            font-size: 20px; }
+
+        .f_left { float:left }
+
+        p.content {
+            font-size: 28px; }
+
+        .emphasize {
+            color: #81FFDC; }
+
+        .reveal section ul {
+            list-style:square;
+            font-size:25px; }
+
+        .reveal .l_none { list-style: none; }
+        .reveal li.l_title { margin-left: -20px; }
+
+        .reveal .txt_28 { font-size: 28px }
+        .reveal .reload_btn {
+            border-radius: 15px;
+            background-color: transparent;
+            border: solid 4px #fff;
+            color: #fff;
+            font-weight: bold; }
+    </style>
+</head>
+
+<body>
+
+<div class="reveal">
+    <div class="slides">
+
+        <section>
+            <div>
+                <h1>
+                    WebGL #4<br>
+                </h1>
+                <p style="color:#fff;text-shadow:1px 1px 2px black,0 0 1em black,0 0 0.2em black;margin-bottom:-10px">
+                    <small>Three.js</small>
+                </p>
+                <p style="color:#fff;text-shadow:1px 1px 2px black,0 0 1em black,0 0 0.2em black;margin-bottom:-30px">
+                    <small>04 28, 2015 - 이준호</small>
+                </p>
+            </div>
+        </section>
+
+        <section>
+
+            <section>
+                <h2>오늘 볼 내용은...</h2>
+                <div>
+                    <img src="img/1.PNG"><br>
+                    <ul style="list-style:square;font-size:25px">
+                        <li>CPU version - <a href="http://ligo.kr/po1" target="_new">http://ligo.kr/po1</a></li>
+                        <li>GPU version - <a href="http://ligo.kr/gr6" target="_new">http://ligo.kr/gr6</a></li>
+                    </ul>
+                </div>
+            </section>
+
+            <section>
+                <h2>WHY CPU?</h2>
+                <div>
+                    <ul style="list-style:square;font-size:25px">
+                        <li>GPU 가속없이 CPU에서 동작하는 자바스크립트만으로 3D엔진을 구축 해보면</li>
+                        <li>최신 GPU 가속을 이용한 3D 구축 원리를 이해할 수 있고,</li>
+                        <li>더 복잡한 3D 엔진들을 쉽게 이해할 수 있게됨.</li>
+                        <li>참고: <a href="http://ligo.kr/vwz" target="_new">http://ligo.kr/vwz</a></li>
+                        <li>코드: <a href="demo/index.html" target="_new">view source</a></li>
+                        <li class="fragment">개인적으로는 GPU의 고마움을 알게 되었음. :)</li>
+                    </ul>
+                </div>
+            </section>
+
+        </section>
+
+        <section>
+            <h2>Core</h2>
+            <div>
+                <ul style="list-style:square;font-size:25px">
+                    <li>Camera, Mesh, Device</li>
+                    <li>Device의 render 메소드에서 Camera 기준의 View Matrix와 Projection Matrix를 처리.<br><img src="img/2.png"></li>
+                    <li>Rendering loop: clear => render => present</li>
+                </ul>
+                <pre><code class="javascript">var transformMatrix = worldMatrix * viewMatrix * projectionMatrix</code></pre>
+            </div>
+        </section>
+
+        <section>
+            <h2>draw Triangle</h2>
+            <div>
+                <ul style="list-style:square;font-size:25px">
+                    <li>Geomatry의 기본은 삼각형</li>
+                    <li>모든 Mesh는 삼각형의 집합</li>
+                    <li>Face: 삼각형을 구성하기 위해 필요한 3개의 Vertex의 인덱스</li>
+                    <li>Vertex를 사용하여 삼각형을 그리고 Mesh를 구성하는 것으로 모든 오브젝트를 표현할 수 있음</li>
+                </ul>
+            </div>
+        </section>
+
+        <section>
+            <h2>Modeling Data</h2>
+            <div>
+                <ul style="list-style:square;font-size:25px">
+                    <li>복잡한 오브젝트를 그리기 위해서는 무수한 삼각형을 그려야 하는데...</li>
+                    <li>일일이 Vertex 좌표를 작성하는 것은 불가능</li>
+                    <li>모델링 툴에서 모델링하여 export한 데이터를 로드하여 사용한다.</li>
+                    <li>모델링 툴도 많고 로더도 많고 포맷도 많고...</li>
+                    <li>파싱은 나름. - 필요한 데이터만 파싱하여 사용하자.</li>
+                </ul>
+            </div>
+        </section>
+
+        <section>
+
+            <section>
+                <h2>삼각형 채우기</h2>
+                <div>
+                    <ul style="list-style:square;font-size:25px">
+                        <li>resterization 알고리즘은 매우 많다. 심지어 각자 제작하기도</li>
+                        <li>CPU던 GPU던 가장 많은 부하가 걸리는 부분</li>
+                        <li>processScanLine
+                            <ul>
+                                <li>위에서 아래로, 좌측에서 우측으로</li>
+                                <li>두 가지 패턴의 삼각형을</li>
+                                <li>두 가지 케이스로 나누어서 채운다.<br><img src="img/3.png"></li>
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
+            </section>
+
+            <section>
+                <h2>z-buffer</h2>
+                <div>
+                    <ul style="list-style:square;font-size:25px">
+                        <li>최종적으로 점을 채우기 전에</li>
+                        <li>뒤에 있는 점을 앞에 있는 점이 가리고 있으면 그리지 않는 처리</li>
+                        <li>점을 찍기 전에 z-buffer와 비교하면 간단히 처리 가능</li>
+                        <li>z-buffer를 저장하기 위한 depthbuffer를 생성</li>
+                    </ul>
+                </div>
+            </section>
+
+        </section>
+
+        <section>
+
+            <section>
+                <h2>Gouraud Shading</h2>
+                <div>
+                    <ul style="list-style:square;font-size:25px">
+                        <li>사실성을 높이기 위해 Light와 Face 사이의 각도를 이용.</li>
+                        <li>Face normal vector와 light vector 사이의 각에 따라 0과 1 사이의 값을 곱</li>
+                        <li>Blender에서 확인 가능</li>
+                        <li>Vertex에 Normal을 저장</li>
+                        <li>각 Vertex의 Normal을 사용하여 Vertex 사이를 보간</li>
+                    </ul>
+                    <pre><code class="javascript">color * Math.max( 0, cos(angle) )</code></pre>
+                </div>
+            </section>
+
+            <section>
+                <h2>주요 메소드</h2>
+                <div>
+                    <table style="font-size:30px">
+                        <tbody>
+                        <tr>
+                            <td>Project</td>
+                            <td>World Matrix를 사용해서 3D상의 좌표를 가지는 Vertex를 생성</td>
+                        </tr>
+                        <tr>
+                            <td>DrawTriangle</td>
+                            <td>Vertex를 받아서 ComputeNDotL 메소드를 통해 NDotL을 연산한 결과를 가지고 ProcessScanLine을 호출</td>
+                        </tr>
+                        <tr>
+                            <td>ComputeNDotL</td>
+                            <td>Normal과 Light 사이의 cosine 각도를 연산</td>
+                        </tr>
+                        <tr>
+                            <td>ProcessScanLine</td>
+                            <td>DrawTriangle로 부터 전달된 NDotL 값을 사용해 color를 결정.</td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+
+        </section>
+
+        <section>
+            <h2>Texture</h2>
+            <div>
+                <ul style="list-style:square;font-size:25px">
+                    <li>Blender에서 export한 UV좌표를 사용</li>
+                    <li>두 Vertex 사이를 보간하는 처리가 핵심</li>
+                    <li>UV좌표란: Vertex에 사용하는 Texture 상의 2D 좌표</li>
+                    <li>이미지를 로드하고 u, v 좌표를 받아 이미지 좌표 상의 컬러를 반환하는 map을 구현</li>
+                </ul>
+            </div>
+        </section>
+
+        <section>
+            <h1>Thank You</h1>
+        </section>
+
+    </div>
+</div>
+
+<script src="../revealjs/lib/js/head.min.js"></script>
+<script src="../revealjs/js/reveal.min.js"></script>
+
+<script>
+
+    // Full list of configuration options available here:
+    // https://github.com/hakimel/reveal.js#configuration
+    Reveal.initialize({
+        width: 1024,
+        height: 768,
+        controls: true,
+        progress: true,
+        history: true,
+        center: true,
+
+        theme: Reveal.getQueryHash().theme, // available themes are in /css/theme
+        transition: Reveal.getQueryHash().transition || 'linear', // default/cube/page/concave/zoom/linear/fade/none
+
+        // Parallax scrolling
+        // parallaxBackgroundImage: 'https://s3.amazonaws.com/hakim-static/reveal-js/reveal-parallax-1.jpg',
+        // parallaxBackgroundSize: '2100px 900px',
+
+        // Optional libraries used to extend on reveal.js
+        dependencies: [
+            { src: '../revealjs/lib/js/classList.js', condition: function() { return !document.body.classList; } },
+            { src: '../revealjs/plugin/markdown/marked.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+            { src: '../revealjs/plugin/markdown/markdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+            { src: '../revealjs/plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } },
+            { src: '../revealjs/plugin/zoom-js/zoom.js', async: true, condition: function() { return !!document.body.classList; } },
+            { src: '../revealjs/plugin/notes/notes.js', async: true, condition: function() { return !!document.body.classList; } }
+        ]
+    });
+
+    function run(sId) {
+        var el = document.getElementById(sId),
+                sValue = el.value,
+                sType = sId.replace(/\d+/g,"");
+
+        el = document.getElementById("content"+ sId.replace(/[a-z]+/ig,""));
+
+        if(sType == "script") {
+            try {
+                if(el.tagName == "IFRAME") {
+                    console.log(sValue);
+                    el.contentWindow.window.eval(sValue);
+                } else {
+                    eval(sValue);
+                }
+            } catch(e) {
+                if(e.message.indexOf("tagName") > -1) {
+                    eval(sValue);
+                } else {
+                    alert(e);
+                }
+            }
+        } else if(sType == "html") {
+            if(el.tagName == "IFRAME") {
+                el.contentWindow.document.body.innerHTML = sValue;
+            } else {
+                el.innerHTML += sValue;
+            }
+        }
+    }
+</script>
+</body>
+</html>
