@@ -1,0 +1,249 @@
+<!doctype html>
+<html lang="ko">
+
+<head>
+  <meta charset="utf-8">
+  <title></title>
+  <meta name="description" content="code">
+  <meta name="author" content="shallaa">
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <link rel="stylesheet" href="../revealjs/css/reveal.min.css">
+  <link rel="stylesheet" href="../revealjs/css/theme/default.css" id="theme">
+
+  <!-- For syntax highlighting -->
+  <link rel="stylesheet" href="../revealjs/lib/css/zenburn.css">
+
+  <style>
+    h3, ol, ul, li { text-align: left}
+    ol, ul { width: 100% }
+  </style>
+
+  <!-- If the query includes 'print-pdf', include the PDF print sheet -->
+  <script>
+    if( window.location.search.match( /print-pdf/gi ) ) {
+      var link = document.createElement( 'link' );
+      link.rel = 'stylesheet';
+      link.type = 'text/css';
+      link.href = '../revealjs/css/print/pdf.css';
+      document.getElementsByTagName( 'head' )[0].appendChild( link );
+    }
+  </script>
+
+  <!--[if lt IE 9]>
+  <script src="../revealjs/lib/js/html5shiv.js"></script>
+  <![endif]-->
+
+</head>
+
+<body>
+
+<div class="reveal">
+
+  <div class="slides">
+
+    <section>
+      <h1>입사에 필요한 JS</h1>
+      <div style="width:100%">
+        <p style="text-align: right">원작: 김성원님</p>
+        <p style="text-align: right"><small>이준호</small></p>
+      </div>
+    </section>
+
+    <section>
+      <h3>Q. if(2 == ___ ) 중에 밑줄에 값이 들어올때 true가 아닌 경우?</h3>
+      <br>
+      <ol>
+        <li>Number(2)</li>
+        <li>Number(2).valueOf()</li>
+        <li>Number(2).toString()</li>
+        <li>2.valueOf()</li>
+        <li>2 .toString()</li>
+      </ol>
+    </section>
+
+    <section>
+      <h3>A. ==, === 는 어떻게 동작하는가?</h3>
+      <br>
+      <ul>
+        <li>피연산자가 Boolean값일 때는 숫자형 값으로 변환<br>( false == 0, true == 1)</li>
+        <li>피연산자가 Number, String이라면<br>String을 Number로 바꿀 수 있는지 시도</li>
+        <li>피연산자 중에 하나만 객체인 경우<br>객체의 valueOf()를 호출해 원시값으로 타입 변환</li>
+        <li>undefined == null, [2, 3] == '2,3', NaN != NaN, ...</li>
+      </ul>
+      <pre><code>
+1 == true; // true
+'1' == 1; // true
+'test' == { valueOf: function() { return 'test'; } }; // true
+2.valueOf(); // Error
+      </code></pre>
+    </section>
+
+    <section>
+      <h3>Q. 다음 값은?</h3>
+      <br>
+      <script src="https://gist.github.com/shallaa/50e3b562c361120a816f.js"></script>
+    </section>
+
+    <section>
+      <h3>A. Hoisting</h3>
+      <br>
+      <ul>
+        <li>var a<br>컴파일러가 변수를 선언</li>
+        <li>a = 0;<br>변수가 없으면 변수를 선언하고 대입</li>
+      </ul>
+      <pre><code>
+foo();
+var foo;
+function foo() {
+  console.log(1);
+}
+foo = function() {
+  console.log(2);
+};
+      </code></pre>
+    </section>
+
+    <section>
+      <h3>Q. 다음중 값이 다른 this는?</h3>
+      <br>
+      <script src="https://gist.github.com/shallaa/eb1dd4cee62c10e1e7a0.js"></script>
+    </section>
+
+    <section>
+      <h3>A. this</h3>
+      <br>
+      <ul>
+        <li>this.method();</li>
+        <li>그냥 호출하면 전역( window )</li>
+        <li>this를 지정하는 방법: apply, call</li>
+      </ul>
+      <pre><code>
+var obj  = {};
+function setName(name) {
+  this.name = name;
+}
+setName(‘aaa’);
+obj.setName = setName;
+obj.setName(‘bbb’);
+obj1 = { setName: setName };
+obj1.setName(‘ccc’);
+console.log(name);
+console.log(obj.name);
+console.log(obj1.name);
+      </code></pre>
+    </section>
+
+    <section>
+      <h3>Q. a, b의 값은?</h3>
+      <br>
+      <script src="https://gist.github.com/shallaa/a287ef91dd7ecbc2b73e.js"></script>
+    </section>
+
+    <section>
+      <h3>Q. 다음중 값이 다른 하나는?</h3>
+      <br>
+      <ol>
+        <li>5 > 1</li>
+        <li>[5] > 1</li>
+        <li>[5] > [1]</li>
+        <li>[5,4] > 1</li>
+      </ol>
+    </section>
+
+    <section>
+      <h3>A. >, >=, <, <= 는 어떻게 동작하는가?</h3>
+      <br>
+      <ul>
+        <li>피연산자가 모두 Number이면 Number 비교</li>
+        <li>피연산자가 Boolean값일 때는 숫자형 값으로 변환</li>
+        <li>피연산자가 모두 String이면 대응하는 문자 코드를 비교</li>
+        <li>피연산자 중에 하나가 Number라면<br>다른 피연산자를 Number로 변환 후 비교</li>
+        <li>피연산자 중에 하나가 객체인 경우<br>객체의 valueOf()를 호출해 원시값으로 타입 변환</li>
+        <li>피연산자 중에 NaN이 있는 경우 항상 false</li>
+      </ul>
+      <pre><code>
+true >  0; // true
+false > -1; // true
+'BIG' < 'small' // true
+'1' < 2  // true
+1 < { valueOf: function() { return 2; } } // true
+NaN >= NaN // false
+[1,2] < [3,4] // true
+      </code></pre>
+    </section>
+
+    <section>
+      <h3>Q. console.log에 찍히는 값은?</h3>
+      <br>
+      <script src="https://gist.github.com/shallaa/d1ec6dcffa3d8e847180.js"></script>
+    </section>
+
+    <section>
+      <h3>A. prototype</h3>
+      <br>
+      <img src="img/prototype.png">
+    </section>
+
+    <section>
+      <h3>Q. a,b,c,d 값은?</h3>
+      <br>
+      <script src="https://gist.github.com/shallaa/d990b19bb137ac8c7649.js"></script>
+    </section>
+
+    <section>
+      <h3>A. Scope, EC</h3>
+      <br>
+      <ul>
+        <li>가장 바깥쪽에 전역 실행 컨텍스트</li>
+        <li>함수 실행 컨텍스트</li>
+        <li>eval을 호출할때 생성되는 컨텍스트 타입</li>
+      </ul>
+    </section>
+
+    <section>
+      <h1>수고하셨습니다.</h1>
+    </section>
+  </div>
+
+</div>
+
+<script src="../revealjs/lib/js/head.min.js"></script>
+<script src="../revealjs/js/reveal.min.js"></script>
+
+<script>
+
+  // Full list of configuration options available here:
+  // https://github.com/hakimel/reveal.js#configuration
+  Reveal.initialize({
+    controls: true,
+    progress: true,
+    history: true,
+    center: true,
+
+    theme: 'simple',//Reveal.getQueryHash().theme, // available themes are in /css/theme
+    transition: 'zoom', //Reveal.getQueryHash().transition || 'default', // default/cube/page/concave/zoom/linear/fade/none
+
+    // Optional libraries used to extend on reveal.js
+    dependencies: [
+      { src: '../revealjs/lib/js/classList.js', condition: function() { return !document.body.classList; } },
+      { src: '../revealjs/plugin/markdown/showdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+      { src: '../revealjs/plugin/markdown/markdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+      { src: '../revealjs/plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } },
+      { src: '../revealjs/plugin/zoom-js/zoom.js', async: true, condition: function() { return !!document.body.classList; } },
+      { src: '../revealjs/plugin/notes/notes.js', async: true, condition: function() { return !!document.body.classList; } }
+    ]
+  });
+
+  var codeExecutor = document.querySelectorAll("a[data-executor]");
+  Array.prototype.forEach.call(codeExecutor, function(v) {
+    v.onclick = function(e) {
+      var parent = e.target.parentNode;
+      eval.call(window, parent.querySelector("pre.code code").innerText);
+    }
+  });
+</script>
+
+</body>
+</html>

@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <title>Backbone</title>
+  <script src="https://code.jquery.com/jquery-2.1.4.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.8.3/underscore.js"></script>
+  <script src="http://backbonejs.org/backbone.js"></script>
+</head>
+<body>
+
+<script>
+  var Model = Backbone.Model.extend({
+    defaults: {
+      text: 'Zombie'
+    }
+  });
+
+  var SubView = Backbone.View.extend({
+    initialize: function(options) {
+
+    },
+
+    render: function() {
+
+      return this;
+    }
+  });
+
+  var View = Backbone.View.extend({
+    tagName: 'li',
+    className: 'zombie',
+    template: _.template('<%= text %>'),
+
+    initialize: function() {
+      this.listenTo(this.model, 'change', this.render);
+    },
+
+    render: function() {
+      var renderOption = this.model.toJSON();
+
+      this.$el.empty();
+
+      this.innerView1 = new SubView(renderOption);
+      this.innerView2 = new SubView(renderOption);
+
+      this.$('.inner-view-container')
+        .append(this.innerView1.render().el)
+        .append(this.innerView2.render().el);
+
+      return this;
+    }
+  });
+
+  new View();
+</script>
+</body>
+</html>
